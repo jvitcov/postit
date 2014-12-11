@@ -1,6 +1,8 @@
-<p class='pull-right'>
-	[<%= link_to 'edit this post', edit_post_path(@post)%>]
-</p>
+<% if logged_in? && session[:user_id]== @post[:user_id] %>
+	<p class='pull-right'>
+		[<%= link_to 'edit this post', edit_post_path(@post)%>]
+	</p>
+<% end %>
 
 <p>
 	<%= render @post.categories %>
@@ -14,21 +16,19 @@
 </p>
 <hr/>
 
-<%= form_for [@post, @comment] do |f| %>
-	<%= render 'shared/errors', obj: @comment %>
-	<div class='control-group'>
-		<%= f.label :body, 'Leave a Comment:' %>
-		<%= f.text_area :body, rows: 5, class: 'span4' %>
-	</div>
-	<%= f.submit "Create Comment", class: "btn btn-primary" %>
+<% if logged_in? %>
+	<%= form_for [@post, @comment] do |f| %>
+		<%= render 'shared/errors', obj: @comment %>
+		<div class='control-group'>
+			<%= f.label :body, 'Leave a Comment:' %>
+			<%= f.text_area :body, rows: 5, class: 'span4' %>
+		</div>
+		<%= f.submit "Create Comment", class: "btn btn-primary" %>
+	<% end %>
 <% end %>
 
 <h4>Comments:</h4>
 
 <% @post.comments.each do |comment| %>
-	<div class='well span8'>
-		<em>"<%= comment.body %>"</em>
-		<br/>
-		by <%= link_to comment.creator.username, '' %> at <%= fix_date(comment.created_at) %>
-	</div>
+	<%= render 'comments/comment', comment: comment %>
 <% end %>
