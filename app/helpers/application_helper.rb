@@ -4,6 +4,10 @@ module ApplicationHelper
 	end
 
 	def fix_date(dt)
-		dt.localtime.strftime("%l:%M%P %Z on %A, %B %-d, %Y")
+		if logged_in? && !current_user.time_zone.blank?
+			dt = dt.in_time_zone(current_user.time_zone)
+		end
+
+		dt.strftime("%l:%M%P %Z on %A, %B %-d, %Y")
 	end
 end

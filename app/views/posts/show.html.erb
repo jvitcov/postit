@@ -1,4 +1,4 @@
-<% if logged_in? && session[:user_id]== @post[:user_id] %>
+<% if logged_in? && session[:user_id]== @post[:user_id] || current_user.admin? %>
 	<p class='pull-right'>
 		[<%= link_to 'edit this post', edit_post_path(@post)%>]
 	</p>
@@ -29,6 +29,6 @@
 
 <h4>Comments:</h4>
 
-<% @post.comments.each do |comment| %>
+<% @post.reload.comments.each do |comment| %>
 	<%= render 'comments/comment', comment: comment %>
 <% end %>
