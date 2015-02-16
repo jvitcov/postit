@@ -17,7 +17,7 @@
 			<%= f.label :phone, "Phone Number <small>(numbers only)<small>".html_safe %>
 			<%= f.text_field :phone, maxlength: 9 %>
 			<%= link_to '#', id: 'two_factor_phone' do %>
-				<i class='icon-question-sign'></i>
+				<i class='icon-question-sign has-popover' data-toggle='popover' title="Two Factor Authentication" data-content="By entering your phone number, you will enable two factor authentication. Upon login, you will receive a text message with a pin. To complete login, you will need to enter the pin."></i>
 			<% end %>
 		</div>
 		<%= f.submit (@user.new_record? ? 'Register' : 'Update Profile'), class: 'btn btn-success' %>

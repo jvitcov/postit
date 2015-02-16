@@ -15,3 +15,8 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+$(document).ready(function() {
+  $('.has-popover').popover({
+    trigger: 'hover click'
+  });
+});
